@@ -2,8 +2,7 @@ import React from "react";
 import tw from "tailwind.macro";
 import styled from "@emotion/styled";
 
-import MaungButton from "../maungbutton";
-import { useStaticQuery, graphql, Link } from "gatsby";
+import { useStaticQuery, graphql } from "gatsby";
 import Img from "gatsby-image";
 
 const Container = styled.div`
