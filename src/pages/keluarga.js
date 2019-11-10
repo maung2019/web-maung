@@ -17,7 +17,7 @@ const KeluargaContainer = styled.div`
   ${tw`font-sans flex justify-center items-center flex-wrap`}
   position: relative;
 `;
-const Cont = tw.div`w-4/5 flex flex-wrap justify-center lg:p-5`;
+const Cont = tw.div`w-11/12 flex flex-wrap justify-center lg:p-5`;
 const HeaderContainer = tw.div`w-full flex justify-center`;
 const MaungText = tw.p`px-10 text-lg my-4 leading-loose`;
 const HeaderText = styled.h2`
@@ -28,11 +28,16 @@ const PhotoContainer = tw.div`w-1/2 lg:w-1/6 flex flex-wrap justify-center my-5`
 
 const StyledLink = tw(Link)`flex justify-center`;
 
-const SearchInput = tw.input`mt-10 bg-gray-300 focus:outline-none focus:shadow-outline border border-gray-300 rounded-full py-2 px-4 block w-3/4 lg:w-3/12 appearance-none leading-normal`;
+const SearchContainer = tw.div`flex w-full px-10 flex-wrap justify-center lg:justify-between items-center`;
+const OptionContainer = tw.div`flex justify-center`;
+const SearchInput = tw.input`bg-gray-300 mb-4 lg:mb-0 focus:outline-none focus:shadow-outline border border-gray-300 rounded-full py-2 px-4 block w-3/4 lg:w-3/12 appearance-none leading-normal`;
+
+const KelompokSelector = tw.span`text-gray-700 mx-1 hover:text-black hover:cursor-pointer`;
 
 const Keluarga = ({ data }) => {
-  const [search, setSearch] = useState("")
-
+  const [search, setSearch] = useState("");
+  const nodeList = data.allDataJson.edges;
+  const sorted = [...nodeList].sort(({node}) => node.image.src.name.includes("default") ? 1 : -1);
   return (
     <Layout>
       <SEO title="Keluarga Kami" />
@@ -43,27 +48,59 @@ const Keluarga = ({ data }) => {
               keluarga <b>maung 2019</b>
             </HeaderText>
           </HeaderContainer>
-          <SearchInput onChange={(e) => debounce(500, throttle(500, setSearch(e.target.value.toLowerCase())))} placeholder="Search"/>
+          <SearchContainer>
+            <SearchInput
+              onChange={e =>
+                debounce(
+                  500,
+                  throttle(500, setSearch(e.target.value.toLowerCase()))
+                )
+              }
+              placeholder="Search(Absen, Nama, Panggilan)"
+            />
+            <OptionContainer>
+              <KelompokSelector>ALL</KelompokSelector>
+              <KelompokSelector>IK</KelompokSelector>
+              <KelompokSelector>SI</KelompokSelector>
+              <KelompokSelector>KR</KelompokSelector>
+              <KelompokSelector>FR</KelompokSelector>
+              <KelompokSelector>MY</KelompokSelector>
+              <KelompokSelector>MX</KelompokSelector>
+              <KelompokSelector>ID</KelompokSelector>
+              <KelompokSelector>TH</KelompokSelector>
+              <KelompokSelector>CN</KelompokSelector>
+              <KelompokSelector>AU</KelompokSelector>
+              <KelompokSelector>JP</KelompokSelector>
+            </OptionContainer>
+          </SearchContainer>
         </Cont>
       </KeluargaContainer>
       <KeluargaContainer>
         <Cont>
-          {data.allDataJson.edges.filter(({node}) => node.nama.toLowerCase().includes(search) || node.absen.toLowerCase().includes(search) || node.panggilan.toLowerCase().includes(search)).map(({ node }) => {
-            return (
-              <PhotoContainer>
-                <StyledLink
-                  to={`${node.panggilan
-                    .trim()
-                    .toLowerCase()}-${node.absen.trim().toLowerCase()}`}
-                >
-                  <Image fixed={node.image.src.childImageSharp.fixed} /><br></br>
-                </StyledLink>
-                <MaungText>
+          {
+            sorted.filter(
+              ({ node }) =>
+                node.nama.toLowerCase().includes(search) ||
+                node.absen.toLowerCase().includes(search) ||
+                node.panggilan.toLowerCase().includes(search)
+            )
+            .map(({ node }) => {
+              return (
+                <PhotoContainer>
+                  <StyledLink
+                    to={`${node.panggilan
+                      .trim()
+                      .toLowerCase()}-${node.absen.trim().toLowerCase()}`}
+                  >
+                    <Image fixed={node.image.src.childImageSharp.fixed} />
+                    <br></br>
+                  </StyledLink>
+                  <MaungText>
                     {node.panggilan.replace(/\s+|[,\/]/g, "-").split("-")[0]}
                   </MaungText>
-              </PhotoContainer>
-            );
-          })}
+                </PhotoContainer>
+              );
+            })}
         </Cont>
       </KeluargaContainer>
     </Layout>
@@ -81,8 +118,9 @@ export const query = graphql`
           prodi
           image {
             src {
+              name
               childImageSharp {
-                fixed(height: 100, width: 100) {
+                fixed(height: 150, width: 150, cropFocus: NORTH) {
                   base64
                   width
                   height
