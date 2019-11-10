@@ -56,9 +56,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const template = path.resolve(`src/templates/about.js`);
   // console.log(data);
   result.data.allDataJson.edges.forEach(({node}) => {
-    const path = `${node.panggilan
-      .trim()
-      .toLowerCase()}-${node.absen.trim().toLowerCase()}`;
+    const path = `${node.email.split("@")[0]}`;
 
     createPage({
       path,

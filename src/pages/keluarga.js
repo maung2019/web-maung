@@ -88,9 +88,7 @@ const Keluarga = ({ data }) => {
               return (
                 <PhotoContainer>
                   <StyledLink
-                    to={`${node.panggilan
-                      .trim()
-                      .toLowerCase()}-${node.absen.trim().toLowerCase()}`}
+                    to={`${node.email.split("@")[0]}`}
                   >
                     <Image fixed={node.image.src.childImageSharp.fixed} />
                     <br></br>
@@ -115,6 +113,7 @@ export const query = graphql`
           nama
           absen
           panggilan
+          email
           prodi
           image {
             src {
