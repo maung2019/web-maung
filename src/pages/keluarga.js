@@ -17,18 +17,18 @@ const KeluargaContainer = styled.div`
   ${tw`font-sans flex justify-center items-center flex-wrap`}
   position: relative;
 `;
-const Cont = tw.div`w-4/5 flex flex-wrap justify-center my-5 lg:p-10`;
+const Cont = tw.div`w-4/5 flex flex-wrap justify-center lg:p-5`;
 const HeaderContainer = tw.div`w-full flex justify-center`;
 const MaungText = tw.p`px-10 text-lg my-4 leading-loose`;
 const HeaderText = styled.h2`
-  ${tw`font-base text-5xl text-right`}
+  ${tw`font-base text-5xl text-center lg:text-right`}
 `;
 
-const PhotoContainer = tw.div`w-1/6 flex flex-wrap justify-center my-5`;
+const PhotoContainer = tw.div`w-1/2 lg:w-1/6 flex flex-wrap justify-center my-5`;
 
 const StyledLink = tw(Link)`flex justify-center`;
 
-const SearchInput = tw.input`bg-gray-300 focus:outline-none focus:shadow-outline border border-gray-300 rounded-full py-2 px-4 block w-3/12 appearance-none leading-normal`;
+const SearchInput = tw.input`mt-10 bg-gray-300 focus:outline-none focus:shadow-outline border border-gray-300 rounded-full py-2 px-4 block w-3/4 lg:w-3/12 appearance-none leading-normal`;
 
 const Keluarga = ({ data }) => {
   const [search, setSearch] = useState("")
