@@ -55,12 +55,12 @@ const Navbar = () => {
           <Link to="/keluarga" activeClassName="active" className="link-large">
             keluarga kami
           </Link>
-          <Link to="/galeri" activeClassName="active" className="link-large">
+          {/* <Link to="/galeri" activeClassName="active" className="link-large">
             galeri foto
-          </Link>
-          <Link to="/bukang" activeClassName="active" className="link-large">
+          </Link> */}
+          {/* <Link to="/bukang" activeClassName="active" className="link-large">
             buku angkatan
-          </Link>
+          </Link> */}
         </LinkContainer>
       </LinkDiv>
       <LinkMobileDiv open={open}>
@@ -71,12 +71,12 @@ const Navbar = () => {
           <Link to="/keluarga" activeClassName="active" className="link-large">
             keluarga kami
           </Link>
-          <Link to="/galeri" activeClassName="active" className="link-large">
+          {/* <Link to="/galeri" activeClassName="active" className="link-large">
             galeri foto
-          </Link>
-          <Link to="/bukang" activeClassName="active" className="link-large">
+          </Link> */}
+          {/* <Link to="/bukang" activeClassName="active" className="link-large">
             buku angkatan
-          </Link>
+          </Link> */}
         </LinkContainer>
       </LinkMobileDiv>
     </Nav>
